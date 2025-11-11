@@ -1,0 +1,38 @@
+{
+    "new-16": {
+        "text": "scissors,blade_handle_set,blade",
+        "id": 0
+    },
+    "new-8": {
+        "text": "scissors,blade_handle_set,handle",
+        "id": 1
+    },
+    "new-11": {
+        "text": "scissors,blade_handle_set,blade",
+        "id": 2
+    },
+    "new-13": {
+        "text": "scissors,blade_handle_set,blade",
+        "id": 3
+    },
+    "new-15": {
+        "text": "scissors,blade_handle_set,blade",
+        "id": 4
+    },
+    "new-9": {
+        "text": "scissors,blade_handle_set,handle",
+        "id": 5
+    },
+    "new-7": {
+        "text": "scissors,blade_handle_set,handle",
+        "id": 6
+    },
+    "new-3": {
+        "text": "scissors,screw",
+        "id": 7
+    },
+    "new-4": {
+        "text": "scissors,screw",
+        "id": 8
+    }
+}

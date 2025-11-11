@@ -12,10 +12,10 @@ try:
 except ImportError:
     flash_attn = None
 
-from cross_grasp.models.base_model import Point
-from cross_grasp.models.base_model import PointModule, PointSequential
-from cross_grasp.models.base_model import offset2bincount, RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
-from cross_grasp.models.base_model import Embedding
+from models.base_model import Point
+from models.base_model import PointModule, PointSequential
+from models.base_model import offset2bincount, RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
+from models.base_model import Embedding
 
 
 class PointTransformerV3Object(PointModule):

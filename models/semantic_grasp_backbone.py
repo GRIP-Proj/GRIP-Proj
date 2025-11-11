@@ -10,10 +10,10 @@ import numpy as np
 from transformers import CLIPTextConfig, CLIPTextModel, CLIPTokenizer
 
 
-from cross_grasp.models.ptv3 import PointTransformerV3
-from cross_grasp.models.PTv3Object import PointTransformerV3Object
-from cross_grasp.fun_utils import default_argument_parser, default_config_parser, load_weight
-from DiT_model import DiT
+from models.ptv3 import PointTransformerV3
+from models.PTv3Object import PointTransformerV3Object
+from models.utils.fun_utils import default_argument_parser, default_config_parser, load_weight
+from models.DiT_model import DiT
 
 
 import torch

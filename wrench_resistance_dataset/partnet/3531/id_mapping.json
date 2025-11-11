@@ -1,0 +1,23 @@
+{
+    "0": {
+        "text": {
+            "text": "bottle,normal_bottle,body",
+            "id": 0
+        },
+        "file": "new-0"
+    },
+    "1": {
+        "text": {
+            "text": "bottle,normal_bottle,lid",
+            "id": 1
+        },
+        "file": "original-3"
+    },
+    "2": {
+        "text": {
+            "text": "bottle,normal_bottle,mouth",
+            "id": 2
+        },
+        "file": "original-5"
+    }
+}

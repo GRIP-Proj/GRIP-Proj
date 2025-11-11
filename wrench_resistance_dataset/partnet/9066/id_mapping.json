@@ -1,0 +1,23 @@
+{
+    "0": {
+        "text": {
+            "text": "bag,handle",
+            "id": 0
+        },
+        "file": "original-3"
+    },
+    "1": {
+        "text": {
+            "text": "bag,handle",
+            "id": 1
+        },
+        "file": "original-4"
+    },
+    "2": {
+        "text": {
+            "text": "bag,bag_body",
+            "id": 2
+        },
+        "file": "new-1"
+    }
+}

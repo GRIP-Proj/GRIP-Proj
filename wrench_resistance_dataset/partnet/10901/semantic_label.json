@@ -1,0 +1,30 @@
+{
+    "new-2": {
+        "text": "earphone,headphone,head_band,top_band",
+        "id": 0
+    },
+    "new-1": {
+        "text": "earphone,headphone,head_band,top_band",
+        "id": 1
+    },
+    "new-0": {
+        "text": "earphone,headphone,head_band,top_band",
+        "id": 2
+    },
+    "new-4": {
+        "text": "earphone,headphone,earcup_unit,earcup_frame",
+        "id": 3
+    },
+    "new-3": {
+        "text": "earphone,headphone,earcup_unit,earcup_pad",
+        "id": 4
+    },
+    "new-6": {
+        "text": "earphone,headphone,earcup_unit,earcup_frame",
+        "id": 5
+    },
+    "new-5": {
+        "text": "earphone,headphone,earcup_unit,earcup_pad",
+        "id": 6
+    }
+}

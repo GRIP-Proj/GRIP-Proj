@@ -1,0 +1,6 @@
+script_test/*
+script_demo/*
+.DS_Store
+gripper_mesh/*
+ckpts/*
+ckpt_ptv3/*

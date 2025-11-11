@@ -131,6 +131,9 @@ class Gripper_AutoFit_Dataset(Dataset):
             grasp_path = join(self.data_folder_path, uuid, 'grasp_config.pt')
             point_feat_path = join(self.data_folder_path, uuid, 'point_feat_all.pt')
             
+            if not os.path.exists(contact_path):
+                continue
+            
             contact_config = torch.load(contact_path).to(device=device, dtype=dtype) # N_sample * 9
             grasp_config = torch.load(grasp_path).to(device=device, dtype=dtype) # N_sample * 12
             point_feat = torch.load(point_feat_path).to(device=device, dtype=dtype) # N_object * feat_dim

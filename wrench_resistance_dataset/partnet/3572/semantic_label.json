@@ -1,0 +1,14 @@
+{
+    "new-1": {
+        "text": "bottle,normal_bottle,body",
+        "id": 0
+    },
+    "new-2": {
+        "text": "bottle,normal_bottle,body",
+        "id": 1
+    },
+    "original-1": {
+        "text": "bottle,normal_bottle,lid",
+        "id": 2
+    }
+}

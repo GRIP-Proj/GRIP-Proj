@@ -25,12 +25,12 @@ try:
 except ImportError:
     flash_attn = None
 
-from serialization import encode
+from models.serialization import encode
 
-from cross_grasp.models.base_model import Point, PointModule, PointSequential, PDNorm
-from cross_grasp.models.base_model import offset2bincount, offset2batch, batch2offset
-from cross_grasp.models.base_model import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
-from cross_grasp.models.base_model import Embedding
+from models.base_model import Point, PointModule, PointSequential, PDNorm
+from models.base_model import offset2bincount, offset2batch, batch2offset
+from models.base_model import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
+from models.base_model import Embedding
 
 
 class PointTransformerV3(PointModule):

@@ -10,11 +10,10 @@ from datetime import datetime
 import importlib.util
 import numpy as np
 from os.path import join
-sys.path.append(join(os.getcwd(), 'cross_grasp'))
 
-from base import get_random_seed, check_file_exist
-import cross_grasp.comm as comm
-from class_utils import ConfigDict, Config, DictAction
+from models.utils.base import get_random_seed, check_file_exist
+import models.utils.comm as comm
+from models.utils.class_utils import ConfigDict, Config, DictAction
 
 
 
