@@ -30,8 +30,8 @@ from utils.grasp_utils import plot_gripper_pro_max, create_radius
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 dtype = torch.float32
 num_eval = 10
-model_type = 'RDT'
-dataset_type = 'gpd'
+model_type = 'DiT'
+dataset_type = 'graspGen'
 
 def R_x(angle_deg):
     """Rotation matrix about X-axis."""
@@ -106,7 +106,7 @@ def main(cross_attn_config, dit_config):
     model.to(dtype=dtype, device=device)
     cross_model.to(dtype=dtype, device=device)
     
-    model_pth_path = f'/home/diligent/Desktop/semantic_grasp_DiT/GRIP/ckpts/{model_type}_{dataset_type}/epoch0001600.pt'
+    model_pth_path = f'/home/diligent/Desktop/semantic_grasp_DiT/GRIP/ckpts/{model_type}_{dataset_type}/epoch0002800.pt'
     cross_model_pth_path = f'/home/diligent/Desktop/semantic_grasp_DiT/GRIP/ckpts/{model_type}_{dataset_type}/best_{dataset_type}.pth'
 
     model.load_state_dict(torch.load(model_pth_path, map_location=device)['model'])
@@ -115,13 +115,16 @@ def main(cross_attn_config, dit_config):
     cross_model.eval()
     model.eval()
     
-    ply_path = './objects/banana.ply'
-    text = 'Grasp body of banana from downward direction'
+    ply_path = './objects/pan.ply'
+    text = 'Grasp rim of frying pan from horizontal direction'
+    # text = 'Grasp weight plates of dumbbell from horizontal direction'
     pcd = o3d.io.read_point_cloud(ply_path)
     
     pcd.estimate_normals(
         search_param=o3d.geometry.KDTreeSearchParamKNN(knn=30)
     )
+    
+    
     
     points = np.asarray(pcd.points).copy()
     points_mean = np.mean(points, axis=0)
@@ -129,6 +132,18 @@ def main(cross_attn_config, dit_config):
     normals = np.asarray(pcd.normals)
     
     pcd_indices = farthest_point_sampling(points, num_samples=1000)
+    
+    # pcd = o3d.geometry.PointCloud()
+    # pd_ = np.load('./pd_rgb_normal_1000.npy')
+    # pd_[:, :3] = pd_[:, :3] * 0.1
+    # pcd.points = o3d.utility.Vector3dVector(pd_[:, :3])
+    # pcd.colors = o3d.utility.Vector3dVector(pd_[:, 3:6])
+    # pcd.normals = o3d.utility.Vector3dVector(pd_[:, 6:9])
+    
+    # points_mean = np.mean(pd_[:, :3], axis=0)
+    # selected_points = pd_[:, :3] - points_mean
+    # selected_normals = pd_[:, 6:9]
+    
     selected_points = points[pcd_indices]
     selected_normals = normals[pcd_indices]
     
@@ -156,15 +171,15 @@ def main(cross_attn_config, dit_config):
         cur_output = output[i].detach().cpu().numpy()
         contact_point = cur_output[6:] + points_mean
         contact_radius = create_radius(contact_point, radius=0.005, color=[1, 0, 0])
-        rot_1 = (cur_output[0:3]) / np.linalg.norm(cur_output[0:3])
-        rot_2 = cur_output[3:6] / np.linalg.norm(cur_output[3:6])
-        rot_3 = np.cross(rot_1, rot_2)
-        rot = np.stack([rot_1, rot_2, rot_3], axis=1)
-        rot = rot @ (R_x(90) @ R_y(90))
-        transform = np.eye(4)
-        transform[:3, :3] = rot
-        transform[:3, 3] = contact_point
-        gripper_mesh_raw = create_gripper_geometry(transform=transform, color=[0, 1, 0])
+        # rot_1 = (cur_output[0:3]) / np.linalg.norm(cur_output[0:3])
+        # rot_2 = cur_output[3:6] / np.linalg.norm(cur_output[3:6])
+        # rot_3 = np.cross(rot_1, rot_2)
+        # rot = np.stack([rot_1, rot_2, rot_3], axis=1)
+        # rot = rot @ (R_x(90) @ R_y(90))
+        # transform = np.eye(4)
+        # transform[:3, :3] = rot
+        # transform[:3, 3] = contact_point
+        # gripper_mesh_raw = create_gripper_geometry(transform=transform, color=[0, 1, 0])
         
         grasp_rot = result[i, :9].reshape(3, 3, order='F')
         grasp_tran = result[i, 9:].reshape(3,)
@@ -181,7 +196,7 @@ def main(cross_attn_config, dit_config):
         transform[:3, 3] = grasp_tran + points_mean - new_grasp_rot[:, 2] * 0.10
         gripper_mesh_pro = create_gripper_geometry(transform, color=[1, 0, 1])
         
-        o3d.visualization.draw_geometries([pcd, contact_radius, axis] + gripper_mesh_pro)
+        o3d.visualization.draw_geometries([pcd, contact_radius, axis] + gripper_mesh)
     
     
     

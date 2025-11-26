@@ -4,3 +4,5 @@ script_demo/*
 gripper_mesh/*
 ckpts/*
 ckpt_ptv3/*
+Contact_point_detection/*
+objects/*

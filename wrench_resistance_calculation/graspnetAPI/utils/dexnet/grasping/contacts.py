@@ -281,7 +281,7 @@ class Contact3D(Contact):
             
             friction_force_mag = friction_coef * normal_force_mag
             
-            from icecream import ic; ic(friction_force_mag, tan_force_mag)
+            # from icecream import ic; ic(friction_force_mag, tan_force_mag)
 
             if friction_force_mag < tan_force_mag:
                 logging.debug('Contact would slip')
@@ -324,7 +324,8 @@ class Contact3D(Contact):
                 logging.debug('Contact point not on surface')
                 return False, None
         else:
-            print("NO SDF! MAKE SURE CPS ARE ON THE SURFACE!!!")
+            # print("NO SDF! MAKE SURE CPS ARE ON THE SURFACE!!!")
+            pass
 
         num_forces = forces.shape[1]
         torques = np.zeros([3, num_forces])
