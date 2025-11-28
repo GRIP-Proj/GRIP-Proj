@@ -1,0 +1,16 @@
+{
+    "0": {
+        "text": {
+            "text": "cutting_instrument,knife,blade_side,blade",
+            "id": 0
+        },
+        "file": "new-1"
+    },
+    "1": {
+        "text": {
+            "text": "cutting_instrument,knife,handle_side,handle",
+            "id": 1
+        },
+        "file": "original-1"
+    }
+}

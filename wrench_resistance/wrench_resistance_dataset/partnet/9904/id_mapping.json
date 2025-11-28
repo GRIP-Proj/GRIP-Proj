@@ -1,0 +1,16 @@
+{
+    "0": {
+        "text": {
+            "text": "hat,normal_hat,crown",
+            "id": 0
+        },
+        "file": "new-5"
+    },
+    "1": {
+        "text": {
+            "text": "hat,normal_hat,brim",
+            "id": 1
+        },
+        "file": "new-3"
+    }
+}
