@@ -27,10 +27,10 @@ except ImportError:
 
 from models.serialization import encode
 
-from models.base_model import Point, PointModule, PointSequential, PDNorm
-from models.base_model import offset2bincount, offset2batch, batch2offset
-from models.base_model import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
-from models.base_model import Embedding
+from models.ptv3_base import Point, PointModule, PointSequential, PDNorm
+from models.ptv3_base import offset2bincount, offset2batch, batch2offset
+from models.ptv3_base import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
+from models.ptv3_base import Embedding
 
 
 class PointTransformerV3(PointModule):

@@ -143,7 +143,7 @@ class CrossAttention(nn.Module):
 #################################################################################
 #                                 RDT Block                                     #
 #################################################################################
-class RDTBlock(nn.Module):
+class RDT(nn.Module):
     """
     A RDT block with cross-attention conditioning.
     """
@@ -200,14 +200,14 @@ class RDTBlock(nn.Module):
         self.t_embedder = TimestepEmbedder(hidden_size, dtype=torch.float32)
         self.final_layer = FinalLayer(hidden_size, out_channels=9)
 
-    def forward(self, x, t, c, pd, mask=None):
+    def forward(self, x, t, y, pd, mask=None):
         x = self.mlp_up(x)     # up-project to 64-dim
 
         t_feat = self.t_embedder(t)
-        c = self.text_down(c)
-        c = c.unsqueeze(1)  # (B, C) -> (B, 1, C)
-        c = self.cross_attn_text_pd(c, pd, mask).squeeze(1)
-        c = c + t_feat
+        y = self.text_down(y)
+        y = y.unsqueeze(1)  # (B, C) -> (B, 1, C)
+        y = self.cross_attn_text_pd(y, pd, mask).squeeze(1)
+        y = y + t_feat
 
         origin_x = x
         x = self.norm1(x)
@@ -218,7 +218,7 @@ class RDTBlock(nn.Module):
         x = self.norm2(x)
         
         # from IPython import embed; embed()
-        x = self.cross_attn(x.unsqueeze(1), c.unsqueeze(1), mask).squeeze(1)
+        x = self.cross_attn(x.unsqueeze(1), y.unsqueeze(1), mask).squeeze(1)
         x = x + origin_x
                 
         origin_x = x

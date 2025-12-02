@@ -6,7 +6,7 @@ current_time = datetime.now()
 time_str = current_time.strftime("%Y-%m-%d_%H-%M-%S")
 
 
-class RDTconfig:
+class DiTConfig:
     base_output = os.getcwd() # replace with your desired base output directory
     # base config
     dataset = 'graspnet'

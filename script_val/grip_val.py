@@ -14,7 +14,7 @@ import open3d as o3d
 from utils.server_client import SocketServer
 
 
-from models.semantic_grasp_backbone import Semantic_Grasp, Dataset_SemanticGrasp
+from models.GRIP import Semantic_Grasp, Dataset_SemanticGrasp
 from models.DiT_model import DiT
 from models.RDT_model import RDTBlock
 from models.cross_attn import Gripper_AutoFit_Attn, Gripper_AutoFit_Dataset
