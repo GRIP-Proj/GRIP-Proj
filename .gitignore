@@ -4,5 +4,7 @@ script_demo/*
 gripper_mesh/*
 ckpts/*
 ckpt_ptv3/*
-Contact_point_detection/*
+Contact_point_dection/*
 objects/*
+pd_rgb_normal_1000.npy
+exp/*
