@@ -23,46 +23,54 @@ from torch.utils.data import Dataset, DataLoader
 from configs.model.model_parameters import ModelParameters
 
 class GRIP(nn.Module):
-    def __init__(self, device, ptv3_config_file, ptv3_ckpt, clip=False):
+    def __init__(self, device, ptv3_config_file, ptv3_ckpt, clip=False, grid_size=0.001):
         super().__init__()
         self.device = device
         
         self.ptv3_input_dict = {}
-        self.ptv3_input_dict['grid_size'] = np.array([0.001, 0.001, 0.001])
+        self.ptv3_input_dict['grid_size'] = np.array([grid_size, grid_size, grid_size])
         
         if clip:
             self.text_tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-base-patch32")
             self.text_model = CLIPTextModel.from_pretrained("openai/clip-vit-base-patch32")
             self.text_model.to(self.device)
         
+        if self.text_model:
+            for param in self.text_model.parameters():
+                param.requires_grad = False
+        
         self.ptv3_model = None
         self.import_ptv3_model(ptv3_config_file, ptv3_ckpt)
         self.ptv3_model.to(self.device) if self.ptv3_model is not None else None
         
-        self.grid_size = np.array([0.01, 0.01, 0.01])
+        if self.ptv3_model:
+            for param in self.ptv3_model.parameters():
+                param.requires_grad = False
+        
+        self.grid_size = np.array([grid_size, grid_size, grid_size])
         
         self.model_params = ModelParameters()
         backbone_config = self.model_params.backbone
         head_config = self.model_params.head
         
         self.backbone = DiT(backbone_config.text_size, backbone_config.in_channels, \
-                            backbone_config.hidden_size, backbone_config.depth, backbone_config.depth, \
-                            backbone_config.num_head)
+                            backbone_config.hidden_size, backbone_config.depth, backbone_config.num_heads)
         
-        self.head = Gripper_AutoFit_Attn(head_config.hidden_size, head_config.num_head, \
+        self.head = Gripper_AutoFit_Attn(head_config.hidden_size, head_config.num_heads, \
                                          head_config.in_feat, head_config.out_feat, head_config.num_layers)
         
+        if self.backbone:
+            for param in self.backbone.parameters():
+                param.requires_grad = True
+                
+        if self.head:
+            for param in self.head.parameters():
+                param.requires_grad = True
+        
         self.diffusion = create_diffusion(timestep_respacing=str(backbone_config.diffuse_step))
-        self.val_diffusion = create_diffusion(timestep_respacing=backbone_config.val_diffuse_step)
+        self.val_diffusion = create_diffusion(timestep_respacing=str(backbone_config.val_diffuse_step))
         self.diffusion_step = backbone_config.diffuse_step
         self.val_diffusion_step = backbone_config.val_diffuse_step
-
-        
-    def _train(self):
-        self.ptv3_model.train() if self.ptv3_model is not None else None
-    
-    def _eval(self):
-        self.ptv3_model.eval() if self.ptv3_model is not None else None
     
     ''' x is contact feature, y is text embedding, pd is point cloud feature, grip_feat is gripper feature '''
     def forward(self, x, y, pd, grip_feat):
@@ -77,8 +85,10 @@ class GRIP(nn.Module):
         
         pass
 
-    
-    def backbone_forward(self, x, t, y, pd):
+    '''
+        y is language embedding, pd is point cloud feature, x is contact feature to be denoised.
+    '''
+    def backbone_forward(self, x, y, pd):
         model_kwargs = dict(y=y, pd=pd)
         t = torch.randint(0, self.diffusion_step, (x.shape[0],), device=x.device).type(torch.int)
         loss_dict = self.diffusion.training_losses(self.backbone, x, t, model_kwargs)

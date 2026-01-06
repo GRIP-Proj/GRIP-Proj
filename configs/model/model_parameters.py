@@ -4,7 +4,7 @@ class BackboneConfig:
         
         if backbone_type == 'DiT':
             self.hidden_size = 64
-            self.num_head = 8
+            self.num_heads = 8
             self.text_size = 512
             self.depth = 28
             self.in_channels = 8
@@ -13,7 +13,7 @@ class BackboneConfig:
             
         elif backbone_type == 'RDT':
             self.hidden_size = 64
-            self.num_head = 8
+            self.num_heads = 8
         
         self.diffuse_step = 1000
         self.val_diffuse_step = 250
@@ -21,7 +21,7 @@ class BackboneConfig:
 class HeadConfig:
     def __init__(self):
         self.hidden_size = 64
-        self.num_head = 8
+        self.num_heads = 8
         self.in_feat = 9
         self.out_feat = 12
         self.num_layers = 4
