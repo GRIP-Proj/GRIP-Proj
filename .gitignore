@@ -9,3 +9,4 @@ objects/*
 pd_rgb_normal_1000.npy
 exp/*
 config_cache/*
+script_val/*

@@ -1,3 +1,14 @@
+# GRIP: <u>G</u>uided <u>R</u>obotic Prec<u>i</u>se Gras<u>p</u>ing using Human Language Instructions
+
+## Introduction
+
+This is the offical code repository of GRIP. 
+
+## Model Structure
+GRIP model structure is shown in following picture.
+![Model Structure](./images/model_structure.png)
+
+## Dataset Details
 gripper init direction:
   approaching direction is z direction and hand base long axis is x direction
 
