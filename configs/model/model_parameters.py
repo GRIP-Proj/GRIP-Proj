@@ -7,7 +7,7 @@ class BackboneConfig:
             self.num_heads = 8
             self.text_size = 512
             self.depth = 28
-            self.in_channels = 8
+            self.in_channels = 9
             self.learn_sigma = True
             
             

@@ -325,7 +325,9 @@ class DiT(nn.Module):
         t: (N,) tensor of diffusion timesteps
         y: (N,) tensor of class labels
         """
+        # from IPython import embed; embed()
         x = self.x_embedder(x)  # (N, 9) -> (N, 64)
+        # from IPython import embed; embed()
         x = x.unsqueeze(1)
         t = self.t_embedder(t)                   # (N, D) 
         y = self.text_embedder(y, self.training)    # (N, D) from 512 to 64
