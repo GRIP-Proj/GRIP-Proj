@@ -9,7 +9,7 @@ Please cite our work if the code is helpful to you.
 import sys
 import os
 from os.path import join
-sys.path.append(join(os.getcwd(), 'cross_grasp'))
+
 from functools import partial
 from addict import Dict
 import math
@@ -27,10 +27,10 @@ except ImportError:
 
 from models.serialization import encode
 
-from models.ptv3_base import Point, PointModule, PointSequential, PDNorm
-from models.ptv3_base import offset2bincount, offset2batch, batch2offset
-from models.ptv3_base import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
-from models.ptv3_base import Embedding
+from .ptv3_base import Point, PointModule, PointSequential, PDNorm
+from .ptv3_base import offset2bincount, offset2batch, batch2offset
+from .ptv3_base import RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
+from .ptv3_base import Embedding
 
 
 class PointTransformerV3(PointModule):

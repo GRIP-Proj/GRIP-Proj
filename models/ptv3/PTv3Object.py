@@ -12,10 +12,11 @@ try:
 except ImportError:
     flash_attn = None
 
-from models.ptv3_base import Point
-from models.ptv3_base import PointModule, PointSequential
-from models.ptv3_base import offset2bincount, RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
-from models.ptv3_base import Embedding
+
+from .ptv3_base import Point
+from .ptv3_base import PointModule, PointSequential
+from .ptv3_base import offset2bincount, RPE, SerializedAttention, MLP, Block, SerializedPooling, SerializedUnpooling
+from .ptv3_base import Embedding
 
 
 class PointTransformerV3Object(PointModule):

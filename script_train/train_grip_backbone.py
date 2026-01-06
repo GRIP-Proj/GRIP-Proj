@@ -13,8 +13,7 @@ from tqdm import tqdm
 
 from models.GRIP import GRIP
 from configs.model.model_parameters import ModelParameters
-from configs.train.DiT_config import DiTConfig
-from configs.train.Cross_attn_config import RDTconfig
+from configs.train.config import Training_Config
 from models.dataloader import GRIP_backbone_dataset, GRIP_head_dataset
 
 
@@ -40,9 +39,9 @@ if __name__ == "__main__":
     
     
     if args.backbone == 'DiT':
-        config = DiTConfig()
+        config = Training_Config(backbone_type='DiT')
     elif args.backbone == 'RDT':
-        config = RDTconfig()
+        config = Training_Config(backbone_type='RDT')
     else:
         assert False, "Unknown backbone model"
     
@@ -57,7 +56,7 @@ if __name__ == "__main__":
     else:
         assert False, "Unknown data type"
     
-    grip = GRIP(args.device, ptv3_config, ptv3_weight, args.use_clip)
+    grip = GRIP(args.device, config, ptv3_config, ptv3_weight, args.use_clip)
     grip.to(args.device, dtype)
     
     grip_head_dataset = GRIP_backbone_dataset(
@@ -122,6 +121,6 @@ if __name__ == "__main__":
         
         if val_loss / val_loss_item < minimal_val_loss:
             minimal_val_loss = val_loss / val_loss_item
-            torch.save(grip.head.state_dict(), join(config.checkpoint_dir, f'best_head_model.pth'))
+            torch.save(grip.head.state_dict(), join(config.save_ckpt_dir, f'best_head_model.pth'))
             
         

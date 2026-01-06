@@ -1,8 +1,7 @@
 import sys
 import os
 from os.path import join
-sys.path.append(join(os.getcwd(), 'cross_grasp'))
-sys.path.append(join(os.getcwd(), 'cross_grasp/models'))
+
 from functools import partial
 from addict import Dict
 import math

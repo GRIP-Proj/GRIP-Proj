@@ -10,20 +10,20 @@ import numpy as np
 from transformers import CLIPTextConfig, CLIPTextModel, CLIPTokenizer
 
 
-from models.ptv3 import PointTransformerV3
-from models.PTv3Object import PointTransformerV3Object
+from models.ptv3.ptv3 import PointTransformerV3
+from models.ptv3.PTv3Object import PointTransformerV3Object
 from models.utils.fun_utils import default_argument_parser, default_config_parser, load_weight
-from models.DiT_model import DiT
-from models.RDT_model import RDT
-from models.cross_attn import Gripper_AutoFit_Attn
+from models.Grip_backbone.DiT_model import DiT
+from models.Grip_backbone.RDT_model import RDT
+from models.Grip_head import Gripper_AutoFit_Attn
 from diffusion import create_diffusion
 
 import torch
 from torch.utils.data import Dataset, DataLoader
-from configs.model.model_parameters import ModelParameters
+
 
 class GRIP(nn.Module):
-    def __init__(self, device, ptv3_config_file, ptv3_ckpt, clip=False, grid_size=0.001):
+    def __init__(self, device, model_config, ptv3_config_file, ptv3_ckpt, clip=False, grid_size=0.001):
         super().__init__()
         self.device = device
         
@@ -49,9 +49,9 @@ class GRIP(nn.Module):
         
         self.grid_size = np.array([grid_size, grid_size, grid_size])
         
-        self.model_params = ModelParameters()
-        backbone_config = self.model_params.backbone
-        head_config = self.model_params.head
+        self.model_config = model_config
+        backbone_config = self.model_config.backbone
+        head_config = self.model_config.head
         
         self.backbone = DiT(backbone_config.text_size, backbone_config.in_channels, \
                             backbone_config.hidden_size, backbone_config.depth, backbone_config.num_heads)

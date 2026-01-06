@@ -34,8 +34,22 @@ class ModelParameters:
         self.head = HeadConfig()
         self.train_diffusion_step = 1000
         self.val_diffusion_step = 250
-        
-        
-        
     
+class BackboneConfig_DiT:
+    def __init__(self):
+        self.hidden_size = 64
+        self.num_heads = 8
+        self.text_size = 512
+        self.depth = 28
+        self.in_channels = 9
+        self.learn_sigma = True
+        self.diffuse_step = 1000
+        self.val_diffuse_step = 250
+
+class BackboneConfig_RDT:
+    def __init__(self):
+        self.hidden_size = 64
+        self.num_heads = 8
+        self.diffuse_step = 1000
+        self.val_diffuse_step = 250
     
